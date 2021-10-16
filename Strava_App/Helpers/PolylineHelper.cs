@@ -1,11 +1,8 @@
 ﻿using Strava.Data.Shared.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Strava_App.Helpers
+namespace Strava.Data.Core.Helpers
 {
     public class PolylineHelper
     {

@@ -2,7 +2,7 @@
 using Strava.Data.Shared.Models;
 using System.IO;
 
-namespace Strava_App.Helpers
+namespace Strava.Data.Core.Helpers
 {
     public class AppSettingsHelper
     {

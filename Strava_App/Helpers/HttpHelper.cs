@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Strava_App.Services;
+using Strava.Data.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Strava_App.Helpers
+namespace Strava.Data.Core.Helpers
 {
     public class HttpHelper
     {

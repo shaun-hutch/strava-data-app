@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Strava.Data.Shared.Models;
-using Strava_App.Helpers;
+using Strava.Data.Core.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Strava_App.Services
+namespace Strava.Data.Core.Services
 {
     public class AuthService
     {

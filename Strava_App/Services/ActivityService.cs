@@ -1,8 +1,8 @@
 ﻿using Strava.Data.Shared.Models;
-using Strava_App.Helpers;
+using Strava.Data.Core.Helpers;
 using System.Threading.Tasks;
 
-namespace Strava_App.Services
+namespace Strava.Data.Core.Services
 {
     public interface IActivityService
     {

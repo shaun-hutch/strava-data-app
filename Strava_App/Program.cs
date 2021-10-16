@@ -1,12 +1,12 @@
 ﻿using Strava.Data.Shared.Models;
-using Strava_App.Helpers;
-using Strava_App.Services;
+using Strava.Data.Core.Helpers;
+using Strava.Data.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Strava_App
+namespace Strava.Data.Core
 {
     class Program
     {
