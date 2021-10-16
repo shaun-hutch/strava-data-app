@@ -1,4 +1,4 @@
-﻿namespace Strava_App.Models
+﻿namespace Strava.Data.Shared.Models
 {
     public class Location
     {

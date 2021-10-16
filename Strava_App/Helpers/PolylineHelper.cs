@@ -1,4 +1,4 @@
-﻿using Strava_App.Models;
+﻿using Strava.Data.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,8 @@ namespace Strava_App.Helpers
     {
         public static List<Location> DecodePolylinePoints(string encodedPoints)
         {
-            if (encodedPoints == null || encodedPoints == "") return null;
-            List<Location> poly = new List<Location>();
+            if (string.IsNullOrEmpty(encodedPoints)) return null;
+            List<Location> poly = new();
             char[] polylinechars = encodedPoints.ToCharArray();
             int index = 0;
 
@@ -55,7 +55,7 @@ namespace Strava_App.Helpers
                         break;
 
                     currentLng += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
-                    Location p = new Location();
+                    Location p = new();
                     p.Latitude = Convert.ToDouble(currentLat) / 100000.0;
                     p.Longitude = Convert.ToDouble(currentLng) / 100000.0;
                     poly.Add(p);

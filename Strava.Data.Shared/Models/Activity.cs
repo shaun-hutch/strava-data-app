@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Strava_App.Models
+namespace Strava.Data.Shared.Models
 {
     public class Activity
     {

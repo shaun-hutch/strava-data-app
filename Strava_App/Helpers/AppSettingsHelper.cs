@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Strava_App.Models;
+using Strava.Data.Shared.Models;
 using System.IO;
 
 namespace Strava_App.Helpers

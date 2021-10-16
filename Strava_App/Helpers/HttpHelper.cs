@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Strava_App.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,51 @@ namespace Strava_App.Helpers
         private static HttpClient Client;
         private static string ApiUrl;
 
-        public static void Init(string apiUrl)
+        public static async Task Init(string apiUrl, string code = "")
         {
             ApiUrl = apiUrl;
             Client = new HttpClient() { BaseAddress = new Uri(ApiUrl) };
+
+            await GetAuth(code);
+        }
+
+        public static async Task GetAuth(string code = "")
+        {
+            var service = new AuthService();
+            var auth = await service.LoadAuth();
+
+            if (auth == null)
+            {
+                Console.WriteLine("unable to acquire auth from JSON file.");
+
+                if (!string.IsNullOrEmpty(code))
+                {
+                    auth = await service.GetAccessToken(code);
+                    await service.WriteAuth(auth);
+                }
+                else
+                {
+                    Console.WriteLine("unable to get initial access token");
+                    Environment.Exit(0);
+                }
+            }
+
+            // refresh token if need be
+            if (DateTime.UtcNow.Ticks > auth.ExpiryUtc.Ticks)
+            {
+                auth = await service.RefreshToken(auth.RefreshToken);
+                if (!await service.WriteAuth(auth))
+                {
+                    Console.WriteLine("unable to write auth to JSON file.");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine($"Auth JSON written to {AppSettingsHelper.Settings.AuthJsonFile}");
+                }
+            }
+
+            HttpHelper.SetAuth(auth.AccessToken);
         }
 
         public static void SetAuth(string accessToken) => 
@@ -27,12 +69,10 @@ namespace Strava_App.Helpers
         {
             try
             {
-                using (var response = await Client.GetAsync(route))
-                {
-                    var result = await ProcessRequest<T>(response);
+                using var response = await Client.GetAsync(route);
+                var result = await ProcessRequest<T>(response);
 
-                    return result;
-                }
+                return result;
             }
             catch (Exception ex)
             {
@@ -47,12 +87,10 @@ namespace Strava_App.Helpers
                 payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
             try
             {
-                using (var response = await Client.PostAsync(route, payload))
-                {
-                    var result = await ProcessRequest<T>(response);
+                using var response = await Client.PostAsync(route, payload);
+                var result = await ProcessRequest<T>(response);
 
-                    return result;
-                }
+                return result;
             }
             catch (Exception ex)
             {

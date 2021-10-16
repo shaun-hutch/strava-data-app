@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Strava.Data.Shared.Models;
 using Strava_App.Helpers;
-using Strava_App.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Strava_App.Services
@@ -29,7 +26,7 @@ namespace Strava_App.Services
             {
                 client_id = ClientId,
                 client_secret = ClientSecret,
-                code = code,
+                code,
                 grant_type = "authorization_code"
             };
 

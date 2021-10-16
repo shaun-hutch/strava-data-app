@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Strava_App.Models
+namespace Strava.Data.Shared.Models
 {
     public class Athlete
     {
