@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Strava.Data.Core\Strava.Data.Core.csproj" />
+    <ProjectReference Include="..\Strava.Data.Shared\Strava.Data.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

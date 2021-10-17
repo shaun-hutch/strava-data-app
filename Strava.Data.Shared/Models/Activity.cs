@@ -9,13 +9,15 @@ namespace Strava.Data.Shared.Models
         public int ResourceState { get; set; }
         public object Athlete { get; set; }
         public string Name { get; set; }
-        public float Distance { get; set; }
+        public double Distance { get; set; }
+        public string DisplayDistance => $"{Math.Round(Distance / 1000.0), 2}km";
+
         [JsonProperty("moving_time")]
         public int MovingTime { get; set; }
         [JsonProperty("elaped_time")]
         public int ElapsedTime { get; set; }
         [JsonProperty("total_elevation_gain")]
-        public float TotalElevationGain { get; set; }
+        public double TotalElevationGain { get; set; }
         public string Type { get; set; }
         [JsonProperty("workout_type")]
         public object WorkoutType { get; set; }
@@ -28,13 +30,15 @@ namespace Strava.Data.Shared.Models
         public DateTime StartDate { get; set; }
         [JsonProperty("start_date_local")]
         public DateTime StartDateLocal { get; set; }
+
+        public string StartDateLocalFormatted => StartDateLocal.ToShortDateString();
         public string Timezone { get; set; }
         [JsonProperty("utc_offset")]
-        public float UtcOffset { get; set; }
+        public double UtcOffset { get; set; }
         [JsonProperty("start_latlng")]
-        public float[] StartLatLng { get; set; }
+        public double[] StartLatLng { get; set; }
         [JsonProperty("end_latlng")]
-        public float[] EndLatLng { get; set; }
+        public double[] EndLatLng { get; set; }
         [JsonProperty("location_city")]
         public string LocationCity { get; set; }
         [JsonProperty("location_state")]
@@ -42,9 +46,9 @@ namespace Strava.Data.Shared.Models
         [JsonProperty("location_country")]
         public string LocationCountry { get; set; }
         [JsonProperty("start_latitude")]
-        public float? StartLatitude { get; set; }
+        public double? StartLatitude { get; set; }
         [JsonProperty("start_longitude")]
-        public float? StartLongitude { get; set; }
+        public double? StartLongitude { get; set; }
         [JsonProperty("achievement_count")]
         public int AchievementCount { get; set; }
         [JsonProperty("kudos_count")]
@@ -69,25 +73,25 @@ namespace Strava.Data.Shared.Models
         [JsonProperty("upload_id_str")]
         public string UploadIdStr { get; set; }
         [JsonProperty("average_speed")]
-        public float AverageSpeed { get; set; }
+        public double AverageSpeed { get; set; }
         [JsonProperty("max_speed")]
-        public float MaxSpeed { get; set; }
+        public double MaxSpeed { get; set; }
         [JsonProperty("average_cadence")]
-        public float AverageCadence { get; set; }
+        public double AverageCadence { get; set; }
         [JsonProperty("has_heartrate")]
         public bool HasHeartrate { get; set; }
         [JsonProperty("average_heartrate")]
-        public float AverageHeartrate { get; set; }
+        public double AverageHeartrate { get; set; }
         [JsonProperty("max_heartrate")]
-        public float MaxHeartrate { get; set; }
+        public double MaxHeartrate { get; set; }
         [JsonProperty("heartrate_opt_out")]
         public bool HeartrateOptOut { get; set; }
         [JsonProperty("display_hide_heartrate_option")]
         public bool DisplayHideHeartrateOption { get; set; }
         [JsonProperty("elev_high")]
-        public float ElevationHigh { get; set; }
+        public double ElevationHigh { get; set; }
         [JsonProperty("elev_low")]
-        public float ElevationLow { get; set; }
+        public double ElevationLow { get; set; }
         [JsonProperty("pr_count")]
         public int PrCount { get; set; }
         [JsonProperty("total_photo_count")]
