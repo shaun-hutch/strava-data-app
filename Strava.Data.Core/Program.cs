@@ -41,7 +41,7 @@ namespace Strava.Data.Core
                 var first = await activityService.GetById(activities.First().Id);
                 List<Location> points = PolylineHelper.DecodePolylinePoints(first.Map.SummaryPolyline);
 
-                Console.Write($"there are {points.Count} location points from the activity");
+                Console.WriteLine($"there are {points.Count} location points from the activity");
 
             }
         }
