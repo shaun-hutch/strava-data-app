@@ -14,7 +14,7 @@ namespace Strava.Data.Core
         // https://www.strava.com/oauth/authorize?client_id=68897&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=activity:read_all,read
 
         // update this after going to the url above
-        static readonly string code = "";
+        static readonly string code = "08297e6dc092cdfaaa7bd0825605f0bae6ce5c41";
 
         static async Task Main(string[] args)
         {

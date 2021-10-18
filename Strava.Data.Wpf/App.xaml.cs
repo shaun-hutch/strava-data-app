@@ -19,9 +19,11 @@ namespace Strava.Data.Wpf
         {
             base.OnStartup(e);
 
+
             Trace.WriteLine("startup");
 
             AppSettingsHelper.LoadAppSettings();
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = AppSettingsHelper.Settings.ArcGisApiKey;
             Task t = HttpHelper.Init(AppSettingsHelper.Settings.ApiUrl);
             t.Wait();
         }

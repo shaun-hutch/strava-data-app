@@ -39,8 +39,7 @@ namespace Strava.Data.Core.Helpers
                 }
                 else
                 {
-                    Console.WriteLine("unable to get initial access token");
-                    Environment.Exit(0);
+                    throw new Exception("unable to get initial access token. No code provided.");
                 }
             }
 
@@ -51,7 +50,6 @@ namespace Strava.Data.Core.Helpers
                 if (!await service.WriteAuth(auth))
                 {
                     Console.WriteLine("unable to write auth to JSON file.");
-                    Environment.Exit(0);
                 }
                 else
                 {

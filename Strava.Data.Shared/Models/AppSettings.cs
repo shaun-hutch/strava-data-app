@@ -6,5 +6,6 @@
         public string ClientSecret { get; set; } 
         public string ApiUrl { get; set; }
         public string AuthJsonFile { get; set; }
+        public string ArcGisApiKey { get; set; }
     }
 }

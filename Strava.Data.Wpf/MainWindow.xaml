@@ -3,8 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Strava.Data.Wpf.UiModels"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
         mc:Ignorable="d"
         Title="My Strava Data" Height="450" Width="800">
+    <Window.Resources>
+        <local:MapViewModel x:Key="MapViewModel" />
+    </Window.Resources>
     <Grid>
         <DataGrid x:Name="gridActivities" Margin="0,0,400,0" AutoGenerateColumns="False" ItemsSource="{Binding Activities}" GridLinesVisibility="None"
                   BorderThickness="0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
@@ -21,5 +26,7 @@
             </DataGrid.Resources>
         </DataGrid>
         <ProgressBar x:Name="LoadingProgress" HorizontalAlignment="Left" Height="10" Margin="105,30,0,0" VerticalAlignment="Top" Width="200" IsIndeterminate="True" />
+        <esri:MapView x:Name="MainMapView" Map="{Binding Map, Source={StaticResource MapViewModel}}" Margin="405,0,0,0" 
+                      GraphicsOverlays="{Binding GraphicsOverlays, Source={StaticResource MapViewModel}}" />
     </Grid>
 </Window>

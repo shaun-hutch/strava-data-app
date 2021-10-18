@@ -28,6 +28,8 @@ namespace Strava.Data.Core.Helpers
                     Settings.ClientId = debugSettings.ClientId;
                 if (!string.IsNullOrEmpty(debugSettings.ClientSecret))
                     Settings.ClientSecret = debugSettings.ClientSecret;
+                if (!string.IsNullOrEmpty(debugSettings.ArcGisApiKey))
+                    Settings.ArcGisApiKey = debugSettings.ArcGisApiKey;
             }
 #endif
         }
