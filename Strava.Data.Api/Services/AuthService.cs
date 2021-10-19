@@ -1,31 +1,39 @@
 ﻿using Newtonsoft.Json;
+using Strava.Data.Api.Helpers;
 using Strava.Data.Shared.Models;
-using Strava.Data.Core.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Strava.Data.Core.Services
+namespace Strava.Data.Api.Services
 {
-    public class AuthService
+    public interface IAuthService
     {
-        private readonly int ClientId;
-        private readonly string ClientSecret;
-        private readonly string AuthJson;
+        public Task<StravaAuth> GetAccessToken(string code);
+        public Task<StravaAuth> RefreshToken(string refreshToken);
+    }
 
-        public AuthService()
+    public class AuthService : IAuthService
+    {
+        private readonly string AuthJson = "auth.json";
+
+        private int _clientId;
+        private string _clientSecret;
+
+        public AuthService() { }
+
+        public void SetInfo(int clientId, string clientSecret)
         {
-            ClientId = AppSettingsHelper.Settings.ClientId;
-            ClientSecret = AppSettingsHelper.Settings.ClientSecret;
-            AuthJson = AppSettingsHelper.Settings.AuthJsonFile;
+            _clientId = clientId;
+            _clientSecret = clientSecret;
         }
         public async Task<StravaAuth> GetAccessToken(string code)
         {
             var url = $"oauth/token";
             var authInfo = new
             {
-                client_id = ClientId,
-                client_secret = ClientSecret,
+                client_id = _clientId,
+                client_secret = _clientSecret,
                 code,
                 grant_type = "authorization_code"
             };
@@ -40,8 +48,8 @@ namespace Strava.Data.Core.Services
             var url = $"oauth/token";
             var authInfo = new
             {
-                client_id = ClientId,
-                client_secret = ClientSecret,
+                client_id = _clientId,
+                client_secret = _clientSecret,
                 refresh_token = refreshToken,
                 grant_type = "refresh_token"
             };

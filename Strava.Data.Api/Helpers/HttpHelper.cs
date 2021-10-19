@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Strava.Data.Core.Services;
+using Strava.Data.Api.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,21 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Strava.Data.Core.Helpers
+namespace Strava.Data.Api.Helpers
 {
     public class HttpHelper
     {
         private static HttpClient Client;
         private static string ApiUrl;
+        private static int ClientId;
+        private static string ClientSecret;
 
-        public static async Task Init(string apiUrl, string code = "")
+        public static async Task Init(string apiUrl, string code = "", int clientId = 0, string clientSecret = "")
         {
             ApiUrl = apiUrl;
             Client = new HttpClient() { BaseAddress = new Uri(ApiUrl) };
+            ClientId = clientId;
+            ClientSecret = clientSecret;
 
             await GetAuth(code);
         }
@@ -26,6 +30,8 @@ namespace Strava.Data.Core.Helpers
         public static async Task GetAuth(string code = "")
         {
             var service = new AuthService();
+            service.SetInfo(ClientId, ClientSecret);
+
             var auth = await service.LoadAuth();
 
             if (auth == null)
@@ -53,11 +59,11 @@ namespace Strava.Data.Core.Helpers
                 }
                 else
                 {
-                    Console.WriteLine($"Auth JSON written to {AppSettingsHelper.Settings.AuthJsonFile}");
+                    Console.WriteLine($"Auth JSON written to auth.json");
                 }
             }
 
-            HttpHelper.SetAuth(auth.AccessToken);
+            SetAuth(auth.AccessToken);
         }
 
         public static void SetAuth(string accessToken) => 

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Strava.Data.Core.Helpers
+namespace Strava.Data.Api.Helpers
 {
     public class PolylineHelper
     {

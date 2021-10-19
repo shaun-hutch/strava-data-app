@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strava.Data.Core", "Strava.Data.Core\Strava.Data.Core.csproj", "{8E9F1874-EAD0-409C-8B39-01E29744E078}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strava.Data.Shared", "Strava.Data.Shared\Strava.Data.Shared.csproj", "{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strava.Data.Api", "Strava.Data.Api\Strava.Data.Api.csproj", "{0C9CB5CF-ED8B-48F7-91D0-206099760116}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8E9F1874-EAD0-409C-8B39-01E29744E078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E9F1874-EAD0-409C-8B39-01E29744E078}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E9F1874-EAD0-409C-8B39-01E29744E078}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E9F1874-EAD0-409C-8B39-01E29744E078}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9CB5CF-ED8B-48F7-91D0-206099760116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9CB5CF-ED8B-48F7-91D0-206099760116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9CB5CF-ED8B-48F7-91D0-206099760116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9CB5CF-ED8B-48F7-91D0-206099760116}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
