@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strava.Data.Core", "Strava.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Strava.Data.Shared", "Strava.Data.Shared\Strava.Data.Shared.csproj", "{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strava.Data.Wpf", "Strava.Data.Wpf\Strava.Data.Wpf.csproj", "{4048DE92-2D30-45E9-9E44-67227909E24C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9853C8A-CE7D-4092-8A40-F7E7210EF2FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4048DE92-2D30-45E9-9E44-67227909E24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4048DE92-2D30-45E9-9E44-67227909E24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4048DE92-2D30-45E9-9E44-67227909E24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4048DE92-2D30-45E9-9E44-67227909E24C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
