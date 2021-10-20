@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Strava.Data.Api.Helpers;
 using Strava.Data.Api.Services;
 using Strava.Data.Shared.Models;
 using System;
@@ -32,6 +33,15 @@ namespace Strava.Data.Api.Controllers
             var activity = await _service.GetById(id);
 
             return activity;
+        }
+
+        [HttpGet("{id}/polyline")]
+        public async Task<Location[]> GetPolyline(long id)
+        {
+            var activity = await GetById(id);
+            var points = PolylineHelper.DecodePolylinePoints(activity.Map.Polyline);
+
+            return points.ToArray();
         }
     }
 }
