@@ -14,7 +14,7 @@ namespace Strava.Data.Api.Controllers
     [Route("auth")]
     public class StravaAuthController : ControllerBase
     {
-        private IAuthService _service;
+        private readonly IAuthService _service;
 
         public StravaAuthController(IAuthService service)
         {

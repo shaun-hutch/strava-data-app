@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Strava.Data.Api.Helpers;
 using Strava.Data.Shared.Models;
 using System;
@@ -15,25 +16,33 @@ namespace Strava.Data.Api.Services
 
     public class AuthService : IAuthService
     {
-        private readonly string AuthJson = "auth.json";
+        private readonly AppSettings _appSettings;
+        private readonly string authJson = "auth.json";
 
         private int _clientId;
         private string _clientSecret;
-
         public AuthService() { }
+
+        public AuthService(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+            _clientId = _appSettings.ClientId;
+            _clientSecret = _appSettings.Secret;
+        }
 
         public void SetInfo(int clientId, string clientSecret)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
         }
+
         public async Task<StravaAuth> GetAccessToken(string code)
         {
             var url = $"oauth/token";
             var authInfo = new
             {
-                client_id = _clientId,
-                client_secret = _clientSecret,
+                client_id = _appSettings.ClientId > 0 ? _appSettings.ClientId : _clientId,
+                client_secret = _appSettings.ClientSecret ?? _clientSecret,
                 code,
                 grant_type = "authorization_code"
             };
@@ -48,8 +57,8 @@ namespace Strava.Data.Api.Services
             var url = $"oauth/token";
             var authInfo = new
             {
-                client_id = _clientId,
-                client_secret = _clientSecret,
+                client_id = _appSettings.ClientId > 0 ? _appSettings.ClientId : _clientId,
+                client_secret = _appSettings.ClientSecret ?? _clientSecret,
                 refresh_token = refreshToken,
                 grant_type = "refresh_token"
             };
@@ -62,9 +71,9 @@ namespace Strava.Data.Api.Services
         {
             try
             {
-                if (File.Exists(AuthJson))
+                if (File.Exists(_appSettings?.AuthJsonFile ?? authJson))
                 {
-                    var authString = await File.ReadAllTextAsync(AuthJson);
+                    var authString = await File.ReadAllTextAsync(_appSettings?.AuthJsonFile ?? authJson);
 
                     return JsonConvert.DeserializeObject<StravaAuth>(authString);
                 }
@@ -82,7 +91,7 @@ namespace Strava.Data.Api.Services
         {
             try
             {
-                await File.WriteAllTextAsync(AuthJson, JsonConvert.SerializeObject(auth));
+                await File.WriteAllTextAsync(_appSettings?.AuthJsonFile ?? authJson, JsonConvert.SerializeObject(auth));
 
                 return true;
             }

@@ -21,12 +21,18 @@ namespace Strava.Data.Api.Services
     public class UserService : IUserService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
+        private readonly List<User> _users = new()
         {
             new User { Id = 1, FirstName = "Shaun", LastName = "Hutchinson", Username = "shaun", Password = "admin" }
         };
 
         private readonly AppSettings _appSettings;
+
+        public UserService(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+        }
+
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
@@ -36,7 +42,7 @@ namespace Strava.Data.Api.Services
             if (user == null) return null;
 
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
+            var token = GenerateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
         }
@@ -53,13 +59,12 @@ namespace Strava.Data.Api.Services
 
         // helper methods
 
-        private string generateJwtToken(User user)
+        private string GenerateJwtToken(User user)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            //Jeff
-            var key = Encoding.ASCII.GetBytes("Jeff");
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),

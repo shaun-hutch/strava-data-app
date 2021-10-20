@@ -84,14 +84,14 @@ namespace Strava.Data.Api.Helpers
             }
         }
 
-        public static async Task<HttpResult<T>> Post<T>(string route, object content = null)
+        public static async Task<HttpResult<T>> Post<T>(string route, object content)
         {
             HttpContent payload = null;
             if (content != null)
                 payload = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
             try
             {
-                using var response = await Client.PostAsync(route, payload);
+                using var response = await Client.PostAsync(route, payload ?? null);
                 var result = await ProcessRequest<T>(response);
 
                 return result;
