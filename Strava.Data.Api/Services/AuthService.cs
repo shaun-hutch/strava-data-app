@@ -57,8 +57,8 @@ namespace Strava.Data.Api.Services
             var url = $"oauth/token";
             var authInfo = new
             {
-                client_id = _appSettings.ClientId > 0 ? _appSettings.ClientId : _clientId,
-                client_secret = _appSettings.ClientSecret ?? _clientSecret,
+                client_id = _appSettings?.ClientId > 0 ? _appSettings?.ClientId : _clientId,
+                client_secret = _appSettings?.ClientSecret ?? _clientSecret,
                 refresh_token = refreshToken,
                 grant_type = "refresh_token"
             };
