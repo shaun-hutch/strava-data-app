@@ -25,7 +25,7 @@ namespace Strava.Data.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://localhost:4000");
+                        .UseUrls("https://localhost:44307");
                 });
     }
 }

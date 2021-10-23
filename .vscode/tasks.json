@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Strava.Data.Core/Strava.Data.Core.csproj",
+                "${workspaceFolder}/Strava.Data.Api/Strava.Data.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Strava.Data.Core/Strava.Data.Core.csproj",
+                "${workspaceFolder}/Strava.Data.Api/Strava.Data.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Strava.Data.Core/Strava.Data.Core.csproj",
+                "${workspaceFolder}/Strava.Data.Api/Strava.Data.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

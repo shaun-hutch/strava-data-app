@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Strava.Data.Api.Helpers;
 using Strava.Data.Api.Services;
 using Strava.Data.Shared.Models;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Strava.Data.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("activities")]
     public class ActivityController : ControllerBase
