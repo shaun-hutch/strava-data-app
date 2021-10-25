@@ -35,7 +35,6 @@ namespace Strava.Data.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public async void ConfigureServices(IServiceCollection services)
         {
-
             services.AddCors();
             services.AddControllers();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -56,14 +55,12 @@ namespace Strava.Data.Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-
-            // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();

@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
+  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-    token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYmYiOjE2MzQ3MjA0MDAsImV4cCI6MTYzNTMyNTIwMCwiaWF0IjoxNjM0NzIwNDAwfQ.mCXmBzUrY7xrYM0m9XPJG-n4NQhh3KiTyThClh5Nfhk"
+  constructor(private router: Router) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
-        req.headers.append("Authorization", "Bearer " + this.token);
+  intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
+      if (!req.url.endsWith("authenticate")) {
+        var token = localStorage.getItem("token");
+        
+        if (token) {
+          req = req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+        }
+      }
 
-    return next.handle(req);
+      return next.handle(req).pipe( tap(() => {},
+      (err: any) => {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status !== 401) {
+         return;
+        }
+        this.router.navigate(['login']);
+      }
+    }));
   }
 }

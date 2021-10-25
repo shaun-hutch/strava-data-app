@@ -1,5 +1,6 @@
-
+<title>{title}</title>
 <div class="main">
+  <button *ngIf="isLoggedIn()" class="btn btn-primary" (click)="logout()">Logout</button>
 
   <router-outlet></router-outlet>
 
