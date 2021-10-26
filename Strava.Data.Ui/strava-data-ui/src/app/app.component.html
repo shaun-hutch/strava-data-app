@@ -1,7 +1,19 @@
 <title>{title}</title>
 <div class="main">
-  <button *ngIf="isLoggedIn()" class="btn btn-primary" (click)="logout()">Logout</button>
-
-  <router-outlet></router-outlet>
+  <nav *ngIf="isLoggedIn()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['dashboard']">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link logout" [routerLink]="" (click)="logout()">Logout</a>
+        </li>
+      </ul>      
+    </div>
+  </nav>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 
 </div>
