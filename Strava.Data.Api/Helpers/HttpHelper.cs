@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Strava.Data.Api.Services;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Strava.Data.Api.Helpers
         private static string ApiUrl;
         private static int ClientId;
         private static string ClientSecret;
+
+        private static JsonSerializerSettings Settings;
 
         public static async Task Init(string apiUrl, string code = "", int clientId = 0, string clientSecret = "")
         {
