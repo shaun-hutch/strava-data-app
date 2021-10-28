@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivityService } from '../services/activity.service';
 import { LocationPoint } from '../models/Location';
@@ -14,6 +14,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private map: any;
 
+  @Input() 
+  activities: Activity[];
+
+  private line: any;
+
   private initMap(): void {
     this.map = L.map('map', {
       center: [ -40.3373129,173.9639123 ],
@@ -27,37 +32,61 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
     tiles.addTo(this.map);
-
-    this.activityService.getActivities().subscribe((data : Activity[]) => {
-      this.getPoints(data[0].Id).subscribe((data) => {
-        let pointList : any = [];
-        data.forEach(element => {
-          pointList.push(new L.LatLng(element.Latitude, element.Longitude));
-        });
-
-        var line = new L.Polyline(pointList, {
-          color: 'red',
-          weight: 3
-        });
-
-        line.addTo(this.map);
-        this.setBounds(data);
-      });
-    });
-
   }
 
   constructor(private activityService: ActivityService) { }
 
   ngOnInit(): void {
+    // grab all activities here and add to table
+    this.activityService.getActivities().subscribe((data : Activity[]) => {
+      this.activities = data;
+    });
   }
 
   ngAfterViewInit(): void {
     this.initMap();
   }
 
+  showRun(id: number, all: boolean = false) {
+    if (this.line) {
+      this.map.removeLayer(this.line);
+    }
+
+    if (all) {
+      this.activities.forEach(a => {
+        this.addPoints(a.Id, false);
+      })
+    }
+    else {
+      this.addPoints(id);
+    }
+  }
+
   private getPoints(activityId: number) : Observable<LocationPoint[]> {
     return this.activityService.getPolyline(activityId);
+  }
+
+  loadRun(id : number) {
+    this.showRun(id);
+  }
+
+  addPoints(id: number, setBounds: boolean = true) {
+    this.getPoints(id).subscribe((data) => {
+      let pointList : any = [];
+      data.forEach(element => {
+        pointList.push(new L.LatLng(element.Latitude, element.Longitude));
+      });
+
+      this.line = new L.Polyline(pointList, {
+        color: 'red',
+        weight: 3
+      });
+
+      this.line.addTo(this.map);
+      if (setBounds) {
+        this.setBounds(data);
+      }
+    });
   }
 
 

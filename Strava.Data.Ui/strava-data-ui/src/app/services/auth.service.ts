@@ -13,7 +13,7 @@ export class AuthService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                localStorage.setItem('token', user.token);
+                localStorage.setItem('token', user.Token);
 
                 return user;
             }));

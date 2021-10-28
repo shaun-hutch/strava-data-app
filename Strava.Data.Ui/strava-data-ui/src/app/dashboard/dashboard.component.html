@@ -1,6 +1,32 @@
 <h2>Dashboard</h2>
-<div class="map-container">
-    <div class="map-frame">
-        <div id="map"></div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button class="btn" (click)="showRun(0, true)">Load All</button>
+
+            <table class="table">
+                <thead>
+                    <th scope="col">Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Distance</th>
+                </thead>
+                <tbody>
+                    <tr class="run-row" *ngFor="let a of activities" (click)="loadRun(a.Id)">
+                        <td scope="col">{{a.StartDateLocalFormatted}}</td>
+                        <td scope="col">{{a.Name}}</td>
+                        <td scope="col">{{a.DisplayDistance}}</td>
+                    </tr>
+                </tbody>
+            </table>    
+        </div>
+        <div class="col">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+

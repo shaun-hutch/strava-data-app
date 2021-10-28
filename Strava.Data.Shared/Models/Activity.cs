@@ -10,7 +10,7 @@ namespace Strava.Data.Shared.Models
         public object Athlete { get; set; }
         public string Name { get; set; }
         public double Distance { get; set; }
-        public string DisplayDistance => $"{Math.Round(Distance / 1000.0), 2}km";
+        public string DisplayDistance => $"{Math.Round(Distance / 1000.0, 2):F2}km";
 
         [JsonProperty("moving_time")]
         public int MovingTime { get; set; }

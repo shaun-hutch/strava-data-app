@@ -42,7 +42,7 @@ namespace Strava.Data.Api.Controllers
             var activity = await GetById(id);
             var points = PolylineHelper.DecodePolylinePoints(activity.Map.Polyline);
 
-            return points.ToArray();
+            return points?.ToArray() ?? new Location[] { };
         }
     }
 }

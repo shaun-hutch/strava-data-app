@@ -53,8 +53,7 @@ namespace Strava.Data.Api
             services.AddMvc()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
-
-        var section = Configuration.GetSection("AppSettings");
+            var section = Configuration.GetSection("AppSettings");
             var clientId = section.GetValue<int>("clientId");
             var clientSecret = section.GetValue<string>("clientSecret");
 
