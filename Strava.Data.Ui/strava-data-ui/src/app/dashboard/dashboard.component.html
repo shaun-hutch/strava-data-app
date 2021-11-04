@@ -1,8 +1,9 @@
 <h2>Dashboard</h2>
+
 <div class="container">
     <div class="row">
         <div class="col">
-            <button class="btn" (click)="showRun(0, true)">Load All</button>
+            <button class="btn btn-primary" id="loadAll" (click)="showRun(0, true)">Load All</button>
 
             <table class="table">
                 <thead>
@@ -11,10 +12,14 @@
                     <th scope="col">Distance</th>
                 </thead>
                 <tbody>
-                    <tr class="run-row" *ngFor="let a of activities" (click)="loadRun(a.Id)">
+                    <tr class="run-row" [class.selected]="a.Id === selected"  *ngFor="let a of activities" (click)="loadRun(a.Id)">
                         <td scope="col">{{a.StartDateLocalFormatted}}</td>
                         <td scope="col">{{a.Name}}</td>
                         <td scope="col">{{a.DisplayDistance}}</td>
+                        <td scope="col" class="spinner" [class.loading]="a.Id === loadingId">
+                            <div class="lds-dual-ring"></div>
+                        </td>
+
                     </tr>
                 </tbody>
             </table>    

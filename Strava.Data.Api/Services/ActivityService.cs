@@ -1,4 +1,5 @@
 ﻿using Strava.Data.Api.Helpers;
+using Strava.Data.Shared;
 using Strava.Data.Shared.Models;
 using System.Threading.Tasks;
 
@@ -13,18 +14,37 @@ namespace Strava.Data.Api.Services
     }
     public class ActivityService : IActivityService
     {
+        private const string KEY_ACTIVITIES = "activities";
         public async Task<Activity[]> Get()
         {
-            var result = await HttpHelper.Get<Activity[]>("activities");
+            Activity[] result;
 
-            return result.Result;
+            result = await CacheStore.Get<Activity[]>(KEY_ACTIVITIES);
+            if (result == default(Activity[]))
+            {
+                var httpResult = await HttpHelper.Get<Activity[]>("activities");
+
+                result = httpResult.Result;
+                await CacheStore.Set(KEY_ACTIVITIES, result);
+            }
+
+            return result;
         }
 
         public async Task<Activity> GetById(long id)
         {
-            var result  = await HttpHelper.Get<Activity>($"activities/{id}");
+            Activity result;
 
-            return result.Result;
+            result = await CacheStore.Get<Activity>($"{id}");
+            if (result == default(Activity))
+            {
+                var httpResult = await HttpHelper.Get<Activity>($"activities/{id}");
+
+                result = httpResult.Result;
+                await CacheStore.Set($"{id}", result);
+            }
+
+            return result;
         }
     }
 }

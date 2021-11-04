@@ -13,11 +13,14 @@ const L = require('leaflet');
 export class DashboardComponent implements OnInit, AfterViewInit {
 
   private map: any;
+  private lines: any = [];
+  points: LocationPoint[] = [];
 
   @Input() 
   activities: Activity[];
-
-  private line: any;
+  
+  public selected: number;
+  public loadingId: number;
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -37,25 +40,33 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor(private activityService: ActivityService) { }
 
   ngOnInit(): void {
-    // grab all activities here and add to table
-    this.activityService.getActivities().subscribe((data : Activity[]) => {
-      this.activities = data;
-    });
   }
 
   ngAfterViewInit(): void {
     this.initMap();
+
+    this.activityService.getActivities().subscribe((data : Activity[]) => {
+      this.activities = data;
+      
+      // select the first activity
+      this.loadRun(this.activities[0].Id);
+    });
   }
 
   showRun(id: number, all: boolean = false) {
-    if (this.line) {
-      this.map.removeLayer(this.line);
-    }
+    this.selected = -1;
+    this.points = [];
+    this.lines?.forEach((element: any) => {
+      this.map.removeLayer(element);
+    });
 
     if (all) {
       this.activities.forEach(a => {
-        this.addPoints(a.Id, false);
-      })
+        this.addPoints(a.Id);
+      });
+
+      console.log("setting all bounds");
+
     }
     else {
       this.addPoints(id);
@@ -68,24 +79,30 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   loadRun(id : number) {
     this.showRun(id);
+    this.selected = id;
   }
 
   addPoints(id: number, setBounds: boolean = true) {
+    this.loadingId = id;
     this.getPoints(id).subscribe((data) => {
       let pointList : any = [];
       data.forEach(element => {
         pointList.push(new L.LatLng(element.Latitude, element.Longitude));
       });
 
-      this.line = new L.Polyline(pointList, {
+      let line = new L.Polyline(pointList, {
         color: 'red',
         weight: 3
       });
 
-      this.line.addTo(this.map);
+      this.points.push(...data);
+
+      line.addTo(this.map);
+      this.lines.push(line);
       if (setBounds) {
-        this.setBounds(data);
+        this.setBounds(this.points);
       }
+      this.loadingId = -1;
     });
   }
 
@@ -95,7 +112,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     let maxLat = -180; 
     let minLng = 180; 
     let maxLng = -180;
-  
+
     points.forEach(p => {
       if (p.Latitude < minLat)
         minLat = p.Latitude;

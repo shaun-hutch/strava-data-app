@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Caching.Memory;
+using Strava.Data.Shared;
 
 namespace Strava.Data.Api
 {
@@ -59,10 +61,13 @@ namespace Strava.Data.Api
 
             var code = "";
             await HttpHelper.Init("https://www.strava.com/api/v3/", code, clientId, clientSecret);
+            services.AddMemoryCache();
+            // startup a cache store
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IMemoryCache cache)
         {
             app.UseRouting();
             app.UseCors(x => x
@@ -71,6 +76,8 @@ namespace Strava.Data.Api
                 .AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseAuthorization();
+
+            CacheStore.Cache = cache;
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
