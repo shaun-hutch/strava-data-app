@@ -27,7 +27,7 @@ namespace Strava.Data.Api.Helpers
             ClientId = clientId;
             ClientSecret = clientSecret;
 
-            await GetAuth(code);
+            //await GetAuth(code);
         }
 
         public static async Task GetAuth(string code = "")

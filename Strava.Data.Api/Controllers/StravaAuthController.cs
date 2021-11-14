@@ -22,16 +22,20 @@ namespace Strava.Data.Api.Controllers
         }
 
 
-        [HttpGet("token")]
-        public async Task<StravaAuth> GetNewToken(string code)
+        [HttpPost("token")]
+        public async Task<StravaAuth> GetNewToken([FromBody] string code)
         {
             var stravaAuth = await _service.GetAccessToken(code);
+
+            Globals.AccessToken = stravaAuth.AccessToken;
+            Globals.RefreshToken = stravaAuth.RefreshToken;
+            Globals.ExpiresAt = stravaAuth.ExpiresAt;
 
             return stravaAuth;
         }
 
-        [HttpGet("refresh")]
-        public async Task<StravaAuth> RefreshToken(string refreshToken)
+        [HttpPost("refresh")]
+        public async Task<StravaAuth> RefreshToken([FromBody] string refreshToken)
         {
             var stravaAuth = await _service.RefreshToken(refreshToken);
 
