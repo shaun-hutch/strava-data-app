@@ -23,13 +23,11 @@ namespace Strava.Data.Api.Controllers
 
 
         [HttpPost("token")]
-        public async Task<StravaAuth> GetNewToken([FromBody] string code)
+        public async Task<StravaAuth> SetAuthToken([FromBody] string code)
         {
             var stravaAuth = await _service.GetAccessToken(code);
+            // this needs to put the whole auth (including refresh token) in a database for the user
 
-            Globals.AccessToken = stravaAuth.AccessToken;
-            Globals.RefreshToken = stravaAuth.RefreshToken;
-            Globals.ExpiresAt = stravaAuth.ExpiresAt;
 
             return stravaAuth;
         }
@@ -38,6 +36,8 @@ namespace Strava.Data.Api.Controllers
         public async Task<StravaAuth> RefreshToken([FromBody] string refreshToken)
         {
             var stravaAuth = await _service.RefreshToken(refreshToken);
+
+            // put the auth in the database once more
 
             return stravaAuth;
         }

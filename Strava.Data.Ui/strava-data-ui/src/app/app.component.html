@@ -7,7 +7,7 @@
           <a class="nav-link" [routerLink]="['dashboard']">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://www.strava.com/oauth/authorize?client_id=68897&response_type=code&redirect_uri=http://localhost:4200&approval_prompt=force&scope=activity:read_all,read">Authorise Account</a>
+          <a class="nav-link" href="https://www.strava.com/oauth/authorize?client_id=68897&response_type=code&redirect_uri=http://localhost:4200/callback&approval_prompt=force&scope=activity:read_all,read">Authorise Account</a>
         </li>
         <li class="nav-item">
           <a class="nav-link logout" [routerLink]="" (click)="logout()">Logout</a>
