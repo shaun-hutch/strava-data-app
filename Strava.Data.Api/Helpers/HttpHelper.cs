@@ -18,16 +18,12 @@ namespace Strava.Data.Api.Helpers
         private static int ClientId;
         private static string ClientSecret;
 
-        private static JsonSerializerSettings Settings;
-
-        public static async Task Init(string apiUrl, string code = "", int clientId = 0, string clientSecret = "")
+        public static void Init(string apiUrl, int clientId = 0, string clientSecret = "")
         {
             ApiUrl = apiUrl;
             Client = new HttpClient() { BaseAddress = new Uri(ApiUrl) };
             ClientId = clientId;
             ClientSecret = clientSecret;
-
-            //await GetAuth(code);
         }
 
         public static async Task GetAuth(string code = "")

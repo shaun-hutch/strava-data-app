@@ -23,9 +23,12 @@ namespace Strava.Data.Api.Controllers
 
 
         [HttpPost("token")]
-        public async Task<StravaAuth> SetAuthToken([FromBody] string code)
+        public async Task<StravaAuth> SetAuthToken([FromBody] StravaAuthRequest request)
         {
-            var stravaAuth = await _service.GetAccessToken(code);
+            if (string.IsNullOrEmpty(request.Code))
+                throw new ArgumentNullException(request.Code);
+
+            var stravaAuth = await _service.GetAccessToken(request.Code);
             // this needs to put the whole auth (including refresh token) in a database for the user
 
 

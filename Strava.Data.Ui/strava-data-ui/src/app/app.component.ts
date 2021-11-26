@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Globals } from './globals';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -10,9 +11,12 @@ export class AppComponent {
   title = 'Strava Run App';
 
   auth: AuthService;
+  @Input()
+  oauthUrl: string;
 
   constructor(authService: AuthService) {
     this.auth = authService;
+    this.oauthUrl = Globals.oauthUrl;
   }
 
   isLoggedIn(): boolean {

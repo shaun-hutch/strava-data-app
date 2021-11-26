@@ -42,7 +42,7 @@ namespace Strava.Data.Api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public async void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddControllers();
@@ -58,12 +58,10 @@ namespace Strava.Data.Api
             var section = Configuration.GetSection("AppSettings");
             var clientId = section.GetValue<int>("clientId");
             var clientSecret = section.GetValue<string>("clientSecret");
+            var apiUrl = section.GetValue<string>("apiUrl");
 
-            var code = "";
-            await HttpHelper.Init("https://www.strava.com/api/v3/", code, clientId, clientSecret);
+            HttpHelper.Init(apiUrl, clientId, clientSecret);
             services.AddMemoryCache();
-            // startup a cache store
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -20,4 +20,10 @@ namespace Strava.Data.Shared.Models
         [JsonIgnore]
         public DateTime ExpiryLocal => ExpiryUtc.ToLocalTime();
     }
+
+    public class StravaAuthRequest
+    {
+        public string Code { get; set; }
+        public int UserId { get; set; }
+    }
 }
